@@ -34,13 +34,13 @@ ff02::2  ip6-allrouters
 192.168.1.227  elvis
 192.168.0.210  dgoldie intranet ksgp
 
-Meanwhile the book has all ready mentioned just before the 
+Meanwhile the book has all ready mentioned (at the end of page 44) just before the 
 while 
 do
 ..... 
 done < /etc/hosts 
 the following : "Note that it does not deal well with unexpected input, 
-such as comment lines (where it says “IP is # - its name is The”). 
+such as comment lines (where it says "IP is # - its name is The .."). 
 grep -v “^#” | while read 
 would be a better method in real life."
 But does that is not accurate. The correct is 
