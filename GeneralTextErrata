@@ -1,0 +1,60 @@
+Page 44 , paragraph "Reading with while" .
+The original script presented in the book is (actually in the book it is given as commands typed directly in the shell
+but here I present it as a script):
+#!/bin/bash
+while read ip name alias
+do
+  if [ ! -z "$name" ]; then
+# Use echo -en here to suppress ending the line, aliases may still be added
+  echo -en "IP is $ip - its name is $name"
+  if [ ! -z “$aliases” ]; then
+    echo "Aliases: $aliases"
+    else
+    # Just echo a blank line
+    echo
+  fi
+fi
+done < /etc/hosts
+Then an example of output is presented. The /etc/hosts that will produce the given output is not mentioned in the book 
+but it should be similar to 
+$cat /etc/hosts
+127.0.0.1  localhost spo
+#  The  Aliases: following lines are desirable for IPv6 capable hosts
+::1  localhost ip6-localhost ip6-loopback
+fe00::0  ip6-localnet
+ff00::0  ip6-mcastprefix
+ff02::1  ip6-allnodes
+ff02::2  ip6-allrouters
+192.168.1.3  sky
+192.168.1.5  plug
+192.168.1.10  declan  declan.steve-parker.org
+192.168.1.11  atomic
+192.168.1.12  jackie
+192.168.1.13  goldie smf sgp
+192.168.1.227  elvis
+192.168.0.210  dgoldie intranet ksgp
+
+Meanwhile the book has all ready mentioned just before the 
+while 
+do
+..... 
+done < /etc/hosts 
+the following : "Note that it does not deal well with unexpected input, 
+such as comment lines (where it says “IP is # - its name is The”). 
+grep -v “^#” | while read 
+would be a better method in real life."
+But does that is not accurate. The correct is 
+#!/bin/bash
+grep -v "^#" etc/hosts  | while read ip name alias
+do
+  if [ ! -z "$name" ]; then
+# Use echo -en here to suppress ending the line, aliases may still be added
+  echo -en "IP is $ip - its name is $name"
+  if [ ! -z “$aliases” ]; then
+    echo "Aliases: $aliases"
+    else
+    # Just echo a blank line
+    echo
+  fi
+fi
+done 
