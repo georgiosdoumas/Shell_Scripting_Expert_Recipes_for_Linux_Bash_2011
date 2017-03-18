@@ -43,9 +43,11 @@ the following : "Note that it does not deal well with unexpected input,
 such as comment lines (where it says "IP is # - its name is The .."). 
 grep -v “^#” | while read 
 would be a better method in real life."
-But does that is not accurate. The correct is 
+But that is not accurate, the grep command will not function without a filename after it.
+The correct is not to feed the file in the script after done , 
+but do it like so :
 #!/bin/bash
-grep -v "^#" etc/hosts  | while read ip name alias
+grep -v "^#" /etc/hosts  | while read ip name alias
 do
   if [ ! -z "$name" ]; then
 # Use echo -en here to suppress ending the line, aliases may still be added
@@ -57,4 +59,4 @@ do
     echo
   fi
 fi
-done 
+done # no redirection here
